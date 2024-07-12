@@ -12,7 +12,7 @@ class BasicConvClassifier(nn.Module):
         in_channels: int,
         hid_dim_1: int = 128,
         hid_dim_2: int = 128,
-        hid_dim_3: int = 256,
+        hid_dim_3: int = 128,
     ) -> None:
         super().__init__()
 
