@@ -6,14 +6,14 @@ from termcolor import cprint
 
 
 class ThingsMEGDataset(torch.utils.data.Dataset):
-    def __init__(self, split: str, data_dir: str = "data") -> None:
+    def __init__(self, split: str, data_dir: str = "data", mean = torch.zeros(271, 1), std = torch.ones(271, 1)) -> None:
         super().__init__()
         
         assert split in ["train", "val", "test"], f"Invalid split: {split}"
         self.split = split
         self.num_classes = 1854
         
-        self.X = torch.load(os.path.join(data_dir, f"{split}_X.pt"))
+        self.X = (torch.load(os.path.join(data_dir, f"{split}_X.pt")) - mean) / std
         self.subject_idxs = torch.load(os.path.join(data_dir, f"{split}_subject_idxs.pt"))
         
         if split in ["train", "val"]:
